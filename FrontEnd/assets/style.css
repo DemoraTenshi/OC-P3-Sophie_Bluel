@@ -212,3 +212,75 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Login page*/
+.body-login {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-between;
+}
+
+#login {
+	width: 50%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+#login > * {
+	text-align: center;
+
+}
+
+#login h2 {
+	justify-content: center;
+}
+
+#login form {
+	text-align: left;
+	padding-top:30px;
+	display: flex;
+	flex-direction: column;
+	
+}
+
+#login input {
+	width: 379px;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	align-self: center;
+}
+#login label {
+	padding: 2em 0 1em 7em;
+}
+#login a {
+	color: black;
+	text-align: center;	
+}
+
+#login input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+
+#email-error {
+	display: none;
+	color: rgb(99, 28, 28);
+	text-align: center;
+	font-weight: 500;
+}
+
+#pw-error {
+	display: none;
+	color: rgb(99, 28, 28);
+	text-align: center;
+	font-weight: 500;
+}
