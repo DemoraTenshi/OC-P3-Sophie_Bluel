@@ -98,6 +98,11 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+a:visited {
+	color: #000000; 
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -271,16 +276,12 @@ footer nav ul {
 	border-radius: 60px ;
 }
 
-#email-error {
+#error-message {
 	display: none;
-	color: rgb(99, 28, 28);
-	text-align: center;
+	color: red;
+	align-self: center;
 	font-weight: 500;
+	padding-top: 1.5em;
 }
 
-#pw-error {
-	display: none;
-	color: rgb(99, 28, 28);
-	text-align: center;
-	font-weight: 500;
-}
+
