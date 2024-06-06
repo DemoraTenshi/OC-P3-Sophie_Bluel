@@ -52,6 +52,10 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-between;
 }
 header {
 	display: flex;
@@ -98,6 +102,10 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+a:visited {
+	color: #000000; 
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -213,13 +221,6 @@ footer nav ul {
 }
 
 /* Login page*/
-.body-login {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	justify-content: space-between;
-}
-
 #login {
 	width: 50%;
 	margin: auto;
@@ -232,8 +233,8 @@ footer nav ul {
 
 }
 
-#login h2 {
-	justify-content: center;
+#login-title {
+	align-self: center;
 }
 
 #login form {
@@ -258,6 +259,12 @@ footer nav ul {
 #login a {
 	color: black;
 	text-align: center;	
+}
+
+#error-message {
+	align-self: center;
+	padding-top: 1em;
+	color: red;
 }
 
 #login input[type="submit"]{
