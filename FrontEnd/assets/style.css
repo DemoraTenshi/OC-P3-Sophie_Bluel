@@ -49,12 +49,18 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
+	margin: auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-between;
 }
 header {
+	position: relative;
 	display: flex;
+	flex-direction: column-reverse;
 	justify-content: space-between;
 	margin: 50px 0
 }
@@ -75,7 +81,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -91,16 +96,35 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding-left: 2.7em;
 	font-size: 1.2em;
+}
+
+nav ul li img{
+	width: 20px;
+	height: 20px;
 }
 
 li:hover {
 	color: #B1663C;
 }
+a {
+	text-decoration: none;
+}
 
 a:visited {
 	color: #000000; 
+}
+
+header nav ul {
+	position: absolute; 
+	right: 0; 
+	top: 50%; 
+	transform: translateY(30%); 
+}
+
+.nav-menu {
+	padding-top: 20px;
 }
 
 #introduction {
@@ -165,7 +189,6 @@ a:visited {
 
 .gallery img {
 	width: 100%;
-
 }
 
 #contact {
@@ -224,6 +247,9 @@ footer nav ul {
 	height: 100vh;
 	justify-content: space-between;
 }
+#login-link {
+	font-weight: 600;
+} 
 
 #login {
 	width: 50%;
@@ -282,6 +308,28 @@ footer nav ul {
 	align-self: center;
 	font-weight: 500;
 	padding-top: 1.5em;
+}
+
+/*admin page*/
+
+.admin-mode {
+	background-color: #000000;
+	justify-content: center;
+	height: 59px;
+	position: fixed;
+	left: 0; 
+	top: 0; 
+	right: 0;
+}
+
+.admin-mode i {
+	padding-top: 1.5em;
+	padding-right: 1em;
+	color: white;
+}
+.admin-title {
+	padding-top: 1.5em;
+	color: white;
 }
 
 
