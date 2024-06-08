@@ -1,4 +1,6 @@
+const portfolio = document.querySelector("#portfolio");
 const gallery = document.querySelector(".gallery");
+let buttonContainer;
 
 // Récupération de la gallerie et affichage des projets//
 async function getWorks() {
@@ -37,19 +39,20 @@ getWorks();
 
 //Récupérations des catégories et affichage des boutons de filtres//
 async function getCategories() {
-  const buttonContainer = document.querySelector(".buttons");
-  if (buttonContainer === null) {
-    return;
-  }
+  buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("buttons");
+  gallery.parentNode.insertBefore(buttonContainer,gallery);
+
+
   // Création du bouton "Tous"//
   const anyButton = document.createElement("button");
   anyButton.classList.add("filter-button");
-  anyButton.setAttribute("id", "selected");
   anyButton.textContent = "Tous";
   buttonContainer.appendChild(anyButton);
   anyButton.addEventListener("click", () => {
     (gallery.innerHTML = ""), getWorks();
   });
+
 
   //Récupération des données//
   await fetch("http://localhost:5678/api/categories")
@@ -59,6 +62,7 @@ async function getCategories() {
       }
       return response.json();
     })
+   
 
     .then((data) => {
       // Création des catégories//
@@ -69,6 +73,7 @@ async function getCategories() {
 
       //Création des filtres//
       const categories = Array.from(categoriesSet);
+
       categories.forEach((category) => {
         const button = document.createElement("button");
         button.textContent = category;
@@ -102,3 +107,72 @@ async function getCategories() {
 }
 
 getCategories();
+
+
+// admin mode!//
+//création du bandeau mode édition et ajout au DOM//
+const header = document.querySelector("header");
+const adminMode = document.createElement("div");
+adminMode.classList.add("admin-mode");
+header.appendChild(adminMode)
+
+const logoAdminMode = document.createElement("i");
+logoAdminMode.classList.add("fa-regular", "fa-pen-to-square");
+adminMode.appendChild(logoAdminMode);
+
+const titleAdminMode = document.createElement("span");
+titleAdminMode.classList.add("admin-title");
+titleAdminMode.textContent = "Mode édition";
+adminMode.appendChild(titleAdminMode);
+
+//Création du lien logout dans le menu de navigation et ajout au DOM//
+const navMenu = document.querySelector("nav ul");
+const logout = document.createElement("li");
+const logoutLink = document.createElement("a");
+logoutLink.appendChild(document.createTextNode("logout"));
+logoutLink.setAttribute("href", "./index.html");
+logoutLink.setAttribute("id", "logout-link");
+logout.appendChild(logoutLink);
+//Récupération du logo instagram//
+const instaLogo = navMenu.querySelector("li:last-child");
+//Insertion de logout avant le logo instagram//
+navMenu.insertBefore(logout, instaLogo);
+
+//Création du bouton d'appel à la modale//
+const projectTitle = document.querySelector("#portfolio h2");
+const editButton = document.createElement("button");
+editButton.classList.add("edit-button");
+const editIcon = document.createElement("i");
+editIcon.classList.add("fa-regular", "fa-pen-to-square");
+editButton.textContent = "modifier";
+editButton.appendChild(editIcon);
+// Ajoutez le bouton modifier à la balise h2
+projectTitle.appendChild(editButton);
+
+//Cache le lien login et affiche le lien logout si logged in//
+
+const loginSection = document.querySelector("#login");
+const login = document.querySelector("#login-link");
+if (localStorage.getItem("token")) {
+    adminMode.style.display ="flex";
+    logout.style.display ="flex";
+    loginSection.style.display = "none";
+    login.style.display = "none";
+    editButton.style.display = "flex";
+    buttonContainer.style.display = "none";
+} else {
+    adminMode.style.display ="none";
+    logout.style.display ="none";
+    loginSection.style.display = "flex";
+    login.style.display = "flex";
+    editButton.style.display = "none";
+    buttonContainer.style.display = "flex";
+}
+
+
+//Gestion de la déconnexion//
+logoutLink.addEventListener("click", (event) =>{
+    event.preventDefault();
+    localStorage.removeItem("token");
+    window.location.href = "./index.html";
+})

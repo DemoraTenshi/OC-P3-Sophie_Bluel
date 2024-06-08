@@ -1,7 +1,8 @@
-const loginLink = document.querySelector("#login-link");
-loginLink.addEventListener("click", handleLogin);
+const loginNav = document.querySelector("#login-link");
+loginNav.addEventListener("click", handleLogin);
 
 async function handleLogin(){
+    login.style.fontWeight = "600"; 
     //Oblitérer les sections #introduction, #portefolio et #contact//
     const introSection = document.querySelector("#introduction");
     const portfolioSection = document.querySelector("#portfolio");

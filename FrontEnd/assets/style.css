@@ -49,7 +49,7 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin:auto;
+	margin: auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 	display: flex;
@@ -58,12 +58,14 @@ body {
 	justify-content: space-between;
 }
 header {
+	position: relative;
 	display: flex;
+	flex-direction: column-reverse;
 	justify-content: space-between;
 	margin: 50px 0
 }
 section {
-	margin: 50px 0
+	margin: 50px 40px;
 }
 
 h1{
@@ -72,14 +74,14 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+	padding: 2em;
 }
 
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -95,20 +97,43 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding-left: 2.7em;
 	font-size: 1.2em;
+}
+
+nav ul li img{
+	width: 20px;
+	height: 20px;
 }
 
 li:hover {
 	color: #B1663C;
 }
+
+a {
+	text-decoration: none;
+	color: #000000;
+}
+
 a:visited {
 	color: #000000; 
+}
+
+header nav ul {
+	position: absolute; 
+	right: 0; 
+	top: 40%; 
+	transform: translateY(30%); 
+}
+
+.nav-menu {
+	padding-top: 20px;
 }
 
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-bottom: 150px;
 }
 #introduction figure {
 	flex: 1
@@ -130,15 +155,29 @@ a:visited {
 	margin-bottom: 0.5em;
 }
 #portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 1em;
+	gap: 1em;
+}
+
+.edit-button {
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 0.75em;
+	background-color: unset;
+	border: none;
+	padding-top: 0.75em;
+	font-size: 14px;
+	margin-bottom: 5em;
 }
 
 .buttons {
 	display: flex;
 	justify-content: center;
-	padding: 3em 0em;
 	gap: 1em;
+	padding: 2em 0 3em 0;
+
 }
 
 .filter-button {
@@ -168,7 +207,6 @@ a:visited {
 
 .gallery img {
 	width: 100%;
-
 }
 
 #contact {
@@ -217,10 +255,18 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em 0;
 }
 
 /* Login page*/
+
+.body-login {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-between;
+}
+
 #login {
 	width: 50%;
 	margin: auto;
@@ -233,8 +279,8 @@ footer nav ul {
 
 }
 
-#login-title {
-	align-self: center;
+#login h2 {
+	justify-content: center;
 }
 
 #login form {
@@ -256,16 +302,6 @@ footer nav ul {
 #login label {
 	padding: 2em 0 1em 7em;
 }
-#login a {
-	color: black;
-	text-align: center;	
-}
-
-#error-message {
-	align-self: center;
-	padding-top: 1em;
-	color: red;
-}
 
 #login input[type="submit"]{
 	font-family: 'Syne';
@@ -278,16 +314,32 @@ footer nav ul {
 	border-radius: 60px ;
 }
 
-#email-error {
+#error-message {
 	display: none;
-	color: rgb(99, 28, 28);
-	text-align: center;
+	color: red;
+	align-self: center;
 	font-weight: 500;
+	padding-top: 1.5em;
 }
 
-#pw-error {
-	display: none;
-	color: rgb(99, 28, 28);
-	text-align: center;
-	font-weight: 500;
+/*admin page*/
+
+.admin-mode {
+	background-color: #000000;
+	justify-content: center;
+	height: 59px;
+	position: fixed;
+	left: 0; 
+	top: 0; 
+	right: 0;
+}
+
+.admin-mode i {
+	padding-top: 1.5em;
+	padding-right: 1em;
+	color: white;
+}
+.admin-title {
+	padding-top: 1.5em;
+	color: white;
 }
