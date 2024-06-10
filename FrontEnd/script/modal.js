@@ -86,6 +86,7 @@ async function getWorksModal() {
     try {
       // Vérification que le jeton d'authentification est défini //
       const token = localStorage.getItem("token");
+      console.log(token);
       if (!token) {
         throw new Error("Aucun jeton d'authentification défini");
       }
@@ -98,7 +99,7 @@ async function getWorksModal() {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(response);
+      
       if (!response.ok) {
         throw new Error("Erreur lors de la suppression de l'élément");
       }

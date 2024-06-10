@@ -35,10 +35,11 @@ form.addEventListener("submit", async (event) =>{
     // Vérifier si la réponse est valide
     if (response.ok) {
         // Récupérer le token d'authentification à partir de la réponse
-        const token =  response.json();
+        const token =  await response.json();
+        console.log (token);
     
         // Stocker le token d'authentification dans le stockage local
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", token.token);
 
         // Rediriger l'utilisateur vers la page d'accueil
         window.location.href = "index.html";
