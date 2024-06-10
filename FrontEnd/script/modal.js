@@ -71,6 +71,8 @@ async function getWorksModal() {
   
           const deleteIcon = document.createElement("i");
           deleteIcon.classList.add("fa-solid", "fa-trash-can", "delete-icon");
+          // Ajout de l'écouteur d'événements pour la suppression //
+          deleteIcon.addEventListener("click", () => deleteWork(item.id));  
 
           imgWrapper.appendChild(deleteIcon);
           imgContainer.appendChild(imgWrapper);
@@ -80,6 +82,43 @@ async function getWorksModal() {
         });
       });
   } 
+  async function deleteWork(id) {
+    try {
+      // Vérification que le jeton d'authentification est défini //
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Aucun jeton d'authentification défini");
+      }
+  
+      // Suppression de l'élément de l'API //
+      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression de l'élément");
+      }
+  
+      const data = await response.json();
+  
+      // Suppression de l'élément de la galerie //
+      const imgContainer = document.querySelector(`.img-container img[data-id="${id}"]`);
+      if (imgContainer) {
+        imgContainer.parentNode.parentNode.parentNode.removeChild(imgContainer.parentNode.parentNode);
+      }
+  
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  
+
   let modalContentLoaded = false
   
   editButton.addEventListener("click",() => {
