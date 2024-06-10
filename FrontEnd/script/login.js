@@ -64,10 +64,11 @@ async function handleLogin(){
     form.appendChild(loginButton)
 
     // Création du lien "mot de passe oublié"
-    const forgotPwLink = document.createElement("a");
-    forgotPwLink.textContent = "Mot de passe oublié";
-    forgotPwLink.href = "#";
-    form.appendChild(forgotPwLink);
+    const forgetPwLink = document.createElement("a");
+    forgetPwLink.setAttribute("id","forget-pw")
+    forgetPwLink.textContent = "Mot de passe oublié";
+    forgetPwLink.href = "#";
+    form.appendChild(forgetPwLink);
 
     //Ecoute de l'évènement de soumission du formulaire//
     form.addEventListener("submit", async (event) =>{
@@ -101,12 +102,13 @@ async function handleLogin(){
           const token = await response.json();
 
           // Stocker le token d'authentification dans le stockage local
-          localStorage.setItem("token", token);
+          localStorage.setItem("token", token.token);
 
           // Rediriger l'utilisateur vers la page d'accueil
           window.location.href = "/";
         } else {
           // Afficher un message d'erreur à l'utilisateur
+          errorMessage.style.display = "flex";
           errorMessage.textContent = "E-mail ou mot de passe incorrect";
         }
     })
