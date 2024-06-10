@@ -36,7 +36,7 @@ form.addEventListener("submit", async (event) =>{
     if (response.ok) {
         // Récupérer le token d'authentification à partir de la réponse
         const token =  response.json();
-        console.log("bonne réponse")
+    
         // Stocker le token d'authentification dans le stockage local
         localStorage.setItem("token", token);
 
