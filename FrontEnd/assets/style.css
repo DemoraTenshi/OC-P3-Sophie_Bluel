@@ -62,7 +62,7 @@ header {
 	display: flex;
 	flex-direction: column-reverse;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 0;
 }
 section {
 	margin: 50px 40px;
@@ -122,9 +122,14 @@ header nav ul {
 	top: 50%; 
 	transform: translateY(30%); 
 }
-
+.admin-mode-active ~ .nav-menu {
+	top: 50px !important;
+	padding-top: 0;
+  }
 .nav-menu {
-	padding-top: 20px;
+	position: relative;
+	top: 0;
+	padding-top: 50px;
 }
 
 #introduction {
@@ -197,7 +202,7 @@ header nav ul {
 
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;

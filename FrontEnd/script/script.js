@@ -158,6 +158,8 @@ navMenu.insertBefore(logout, instaLogo);
 const loginLink = document.querySelector("#login");
 if (localStorage.getItem("token")) {
     adminMode.style.display ="flex";
+    adminMode.classList.add("admin-mode-active");
+    console.log(adminMode);
     logout.style.display ="flex";
     loginLink.style.display = "none";
     editButton.style.display = "flex";
