@@ -3,43 +3,43 @@
  ***  GALLERY DISPLAY ***
  ************************/
  const portfolio = document.querySelector("#portfolio");
- const gallery = document.querySelector(".gallery");
- let buttonContainer;
- 
- // Récupération de la gallerie et affichage des projets//
- async function getWorks() {
-   //Récupération des données//
-   await fetch("http://localhost:5678/api/works")
-     .then((response) => {
-       if (!response.ok) {
-         throw new Error("Erreur lors de la récupération des données");
-       }
-       return response.json();
-     })
- 
-     .then((data) => {
-       //Création des balises html//
-       data.forEach((item) => {
-         const projectElement = document.createElement("article");
-         projectElement.classList.add("projectElement");
-         projectElement.setAttribute("data-category", item.category.name);
- 
-         const imgElement = document.createElement("img");
-         imgElement.src = item.imageUrl;
-         imgElement.alt = item.title;
- 
-         const titleElement = document.createElement("figcaption");
-         titleElement.textContent = item.title;
- 
-         //Ajout des éléments dans le DOM//
-         gallery.appendChild(projectElement);
-         projectElement.appendChild(imgElement);
-         projectElement.appendChild(titleElement);
-       });
-     });
- }
- 
- getWorks();
+const gallery = document.querySelector(".gallery");
+let buttonContainer;
+
+// Récupération de la galerie et affichage des projets
+async function getWorks() {
+  try {
+    const response = await fetch("http://localhost:5678/api/works");
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération des données");
+    }
+    const data = await response.json();
+
+    // Création des balises HTML
+    data.forEach((item) => {
+      const projectElement = document.createElement("article");
+      projectElement.classList.add("projectElement");
+      projectElement.setAttribute("data-id", item.id); // Ajouter l'attribut data-id
+      projectElement.setAttribute("data-category", item.category.name);
+
+      const imgElement = document.createElement("img");
+      imgElement.src = item.imageUrl;
+      imgElement.alt = item.title;
+
+      const titleElement = document.createElement("figcaption");
+      titleElement.textContent = item.title;
+
+      // Ajout des éléments dans le DOM
+      gallery.appendChild(projectElement);
+      projectElement.appendChild(imgElement);
+      projectElement.appendChild(titleElement);
+    });
+  } catch (error) {
+    console.error("Erreur lors de la récupération des projets : ", error);
+  }
+}
+
+getWorks();
 
 //Récupérations des catégories et affichage des boutons de filtres//
 async function getCategories() {
