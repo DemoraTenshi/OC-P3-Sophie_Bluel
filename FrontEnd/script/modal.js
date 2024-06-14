@@ -117,24 +117,35 @@ let img;
 function displayImagePreview(file) {
   uploadFileContainer.innerHTML = ""; // Vider le contenu de uploadFileContainer
 
-  if (!file) return; // Exit if no file is selected
+  if (!file) {
+    // Ajouter uploadBackground et addFileContainer si aucun fichier n'est sélectionné
+    uploadFileContainer.appendChild(uploadBackground);
+    uploadFileContainer.appendChild(addFileContainer);
+    return;
+  }
 
   if (file.type !== "image/jpeg" && file.type !== "image/png") {
-      invalidFile.innerText = "Veuillez sélectionner un fichier JPG ou PNG.";
+    invalidFile.innerText = "Veuillez sélectionner un fichier JPG ou PNG.";
+    // Ajouter uploadBackground et addFileContainer en cas de type de fichier invalide
+    uploadFileContainer.appendChild(uploadBackground);
+    uploadFileContainer.appendChild(addFileContainer);
   } else if (file.size > 4 * 1024 * 1024) {
-      invalidFile.innerText = "Veuillez sélectionner un fichier de moins de 4 Mo.";
+    invalidFile.innerText = "Veuillez sélectionner un fichier de moins de 4 Mo.";
+    // Ajouter uploadBackground et addFileContainer en cas de fichier trop volumineux
+    uploadFileContainer.appendChild(uploadBackground);
+    uploadFileContainer.appendChild(addFileContainer);
   } else {
-      invalidFile.innerText = "";
-      const photoPreview = new FileReader();
-      photoPreview.readAsDataURL(file);
+    invalidFile.innerText = "";
+    const photoPreview = new FileReader();
+    photoPreview.readAsDataURL(file);
 
-      photoPreview.addEventListener("load", () => {
-          const url = photoPreview.result;
-          const img = new Image();
-          img.classList.add("photoPreviewImg");
-          img.src = url;
-          uploadFileContainer.appendChild(img);
-      });
+    photoPreview.addEventListener("load", () => {
+      const url = photoPreview.result;
+      const img = new Image();
+      img.classList.add("photoPreviewImg");
+      img.src = url;
+      uploadFileContainer.appendChild(img);
+    });
   }
 }
 
@@ -337,19 +348,19 @@ submitButton.addEventListener("click", async (e) => {
 
     // Ajouter la nouvelle œuvre à la galerie 
     const gallery = document.querySelector(".gallery");
-    const galleryItem = document.createElement("div");
-    galleryItem.classList.add("gallery-item");
-    galleryItem.setAttribute("data-id", newWork.id);
+    const projectElement = document.createElement("div");
+    projectElement.classList.add("gallery-item");
+    projectElement.setAttribute("data-id", newWork.id);
 
     const galleryImg = document.createElement("img");
     galleryImg.src = newWork.imageUrl;
     galleryImg.alt = newWork.title;
-    galleryItem.appendChild(galleryImg);
+    projectElement.appendChild(galleryImg);
     const galleryTitle = document.createElement("figcaption");
     galleryTitle.textContent = newWork.title;
-    galleryItem.appendChild(galleryTitle);
+    projectElement.appendChild(galleryTitle);
 
-    gallery.appendChild(galleryItem);
+    gallery.appendChild(projectElement);
 
   // Réinitialiser le formulaire
   addFileBtn.value = "";

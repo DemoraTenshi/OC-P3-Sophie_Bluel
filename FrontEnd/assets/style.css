@@ -58,11 +58,10 @@ body {
 	justify-content: space-between;
 }
 header {
-	position: relative;
 	display: flex;
 	flex-direction: column-reverse;
 	justify-content: space-between;
-	margin: 60px 0
+	
 }
 section {
 	margin: 50px 40px;
@@ -75,7 +74,7 @@ h1{
 	font-size: 22px;
 	font-weight: 800;
 	color: #B1663C;
-	padding: 0 2em 2em 2em;
+	padding: 2em;
 }
 
 h1 > span {
@@ -102,8 +101,8 @@ nav li {
 }
 
 nav ul li img{
-	width: 20px;
-	height: 20px;
+	width: 23px;
+	height: 23px;
 }
 
 li:hover {
@@ -120,14 +119,12 @@ a:visited {
 }
 
 header nav ul {
-	position: absolute; 
-	right: 0; 
-	top: 10%; 
-	transform: translateY(30%); 
+	padding: 4em 0 4em 4em;
 }
 
 .nav-menu {
-	padding-top: 20px;
+	display: flex;
+	justify-content: space-between;
 }
 
 #introduction {
@@ -177,7 +174,6 @@ header nav ul {
 	justify-content: center;
 	gap: 1em;
 	padding: 2em 0 3em 0;
-
 }
 
 .filter-button {
@@ -197,6 +193,11 @@ header nav ul {
     transition: 0.15s;
 }
 
+.filter-button.selected {
+	background-color: #1D6154;
+	color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -211,7 +212,7 @@ header nav ul {
 
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -329,22 +330,28 @@ footer nav ul {
 /*admin page*/
 
 .admin-mode {
-	background-color: #000000;
-	justify-content: center;
-	height: 55px;
+	display: flex;
+	width: 100vw;
+	height: 59px;
 	position: fixed;
-	left: 0; 
-	top: 0; 
-	right: 0;
+	top: 0;
+	z-index: 3;
+	background-color: #000000;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	justify-content: center;
+	align-items: center;
+	gap: 21px;
 }
 
 .admin-mode i {
-	padding-top: 1.5em;
+	padding-top: 1em;
 	padding-right: 1em;
 	color: white;
 }
 .admin-title {
-	padding-top: 1.5em;
+	padding-top: 1em;
 	color: white;
 }
 
