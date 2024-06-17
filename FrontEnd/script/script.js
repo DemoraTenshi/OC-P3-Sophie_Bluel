@@ -12,7 +12,7 @@ async function getWorks() {
 }
 
 function renderWorks(data) {
-  gallery.innerHTML = ""; // Clear the gallery before rendering
+  gallery.innerHTML = ""; // effacer la galerie //
   data.forEach((item) => {
     const projectElement = document.createElement("article");
     projectElement.classList.add("projectElement");
@@ -36,7 +36,7 @@ async function getCategories() {
   buttonContainer.classList.add("buttons");
   gallery.parentNode.insertBefore(buttonContainer, gallery);
 
-  // Create the "Tous" button
+  // Création du bouton "Tous" //
   const anyButton = document.createElement("button");
   anyButton.classList.add("filter-button");
   anyButton.textContent = "Tous";
@@ -84,9 +84,6 @@ function filterGallery(category) {
 
 getWorks();
 getCategories();
-
-
-
 
 
 // admin mode!//
