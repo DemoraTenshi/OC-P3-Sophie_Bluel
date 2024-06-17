@@ -1,119 +1,92 @@
-
-/************************
- ***  GALLERY DISPLAY ***
- ************************/
- const portfolio = document.querySelector("#portfolio");
+const portfolio = document.querySelector("#portfolio");
 const gallery = document.querySelector(".gallery");
 let buttonContainer;
 
-// Récupération de la galerie et affichage des projets
 async function getWorks() {
-  try {
-    const response = await fetch("http://localhost:5678/api/works");
-    if (!response.ok) {
-      throw new Error("Erreur lors de la récupération des données");
-    }
-    const data = await response.json();
-
-    // Création des balises HTML
-    data.forEach((item) => {
-      const projectElement = document.createElement("article");
-      projectElement.classList.add("projectElement");
-      projectElement.setAttribute("data-id", item.id); // Ajouter l'attribut data-id
-      projectElement.setAttribute("data-category", item.category.name);
-
-      const imgElement = document.createElement("img");
-      imgElement.src = item.imageUrl;
-      imgElement.alt = item.title;
-
-      const titleElement = document.createElement("figcaption");
-      titleElement.textContent = item.title;
-
-      // Ajout des éléments dans le DOM
-      gallery.appendChild(projectElement);
-      projectElement.appendChild(imgElement);
-      projectElement.appendChild(titleElement);
-    });
-  } catch (error) {
-    console.error("Erreur lors de la récupération des projets : ", error);
+  const response = await fetch("http://localhost:5678/api/works");
+  if (!response.ok) {
+    throw new Error("Erreur lors de la récupération des données");
   }
+  const data = await response.json();
+  renderWorks(data);
 }
 
-getWorks();
+function renderWorks(data) {
+  gallery.innerHTML = ""; // effacer la galerie //
+  data.forEach((item) => {
+    const projectElement = document.createElement("article");
+    projectElement.classList.add("projectElement");
+    projectElement.setAttribute("data-category", item.category.name);
 
-//Récupérations des catégories et affichage des boutons de filtres//
+    const imgElement = document.createElement("img");
+    imgElement.src = item.imageUrl;
+    imgElement.alt = item.title;
+
+    const titleElement = document.createElement("figcaption");
+    titleElement.textContent = item.title;
+
+    projectElement.appendChild(imgElement);
+    projectElement.appendChild(titleElement);
+    gallery.appendChild(projectElement);
+  });
+}
+
 async function getCategories() {
   buttonContainer = document.createElement("div");
   buttonContainer.classList.add("buttons");
-  gallery.parentNode.insertBefore(buttonContainer,gallery);
-  
-  // Création du bouton "Tous"//
+  gallery.parentNode.insertBefore(buttonContainer, gallery);
+
+  // Création du bouton "Tous" //
   const anyButton = document.createElement("button");
   anyButton.classList.add("filter-button");
   anyButton.textContent = "Tous";
   buttonContainer.appendChild(anyButton);
   anyButton.addEventListener("click", () => {
-    (gallery.innerHTML = ""), getWorks();
+    filterGallery();
   });
 
-  //Récupération des données//
-  await fetch("http://localhost:5678/api/categories")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erreur lors de la récupération des données");
-      }
-      return response.json();
-    })
-   
+  const response = await fetch("http://localhost:5678/api/categories");
+  if (!response.ok) {
+    throw new Error("Erreur lors de la récupération des données");
+  }
+  const data = await response.json();
+  const categoriesSet = new Set(data.map((item) => item.name));
 
-    .then((data) => {
-      // Création des catégories//
-      const categoriesSet = new Set();
-      data.forEach((item) => {
-        categoriesSet.add(item.name);
-      });
-
-      //Création des filtres//
-      const categories = Array.from(categoriesSet);
-
-      categories.forEach((category) => {
-        const button = document.createElement("button");
-        button.textContent = category;
-        button.classList.add("filter-button");
-        //Ajout dans le DOM//
-        buttonContainer.appendChild(button);
-        //Ajout de l'eventListener//
-        button.addEventListener("click", () => {
-          filterGallery(category);
-        });
-      });
-
-      //fonction pour filtrer la galerie en fonction de la catégorie sélectionnée//
-      function filterGallery(category) {
-        // Récupération des éléments de la galerie//
-        const galleryItems = document.querySelectorAll(".projectElement");
-
-        // Parcours des éléments de la galerie//
-        galleryItems.forEach((item) => {
-          const itemCategory = item.getAttribute("data-category");
-
-          // Vérification si la catégorie de l'élément correspond à la catégorie sélectionnée//
-          if (category === undefined || category === itemCategory) {
-            item.style.display = "block";
-          } else {
-            item.style.display = "none";
-          }
-        });
-      }
+  categoriesSet.forEach((category) => {
+    const button = document.createElement("button");
+    button.textContent = category;
+    button.classList.add("filter-button");
+    buttonContainer.appendChild(button);
+    button.addEventListener("click", () => {
+      filterGallery(category);
     });
+  });
+
+  // Initialize with the "Tous" filter selected
+  filterGallery();
 }
 
+function filterGallery(category) {
+  currentCategory = category;
+
+  const galleryItems = document.querySelectorAll(".projectElement");
+  galleryItems.forEach((item) => {
+    const itemCategory = item.getAttribute("data-category");
+    item.style.display = !category || category === itemCategory ? "block" : "none";
+  });
+
+  // Update button selection
+  const buttons = document.querySelectorAll(".filter-button");
+  buttons.forEach((button) => {
+    button.classList.toggle("selected", button.textContent === (category || "Tous"));
+  });
+}
+
+getWorks();
 getCategories();
 
 
-/********************
- ***  ADMIN MODE ***
- ********************/
+// admin mode!//
 //création du bandeau mode édition et ajout au DOM//
 const header = document.querySelector("header");
 const adminMode = document.createElement("div");
@@ -142,18 +115,19 @@ const instaLogo = navMenu.querySelector("li:last-child");
 //Insertion de logout avant le logo instagram//
 navMenu.insertBefore(logout, instaLogo);
 
-  //Création du bouton d'appel à la modale//
-  const projectTitle = document.querySelector("#portfolio h2");
-  const editButton = document.createElement("button");
-  editButton.classList.add("edit-button");
-  const editIcon = document.createElement("i");
-  editIcon.classList.add("fa-regular", "fa-pen-to-square");
-  editButton.textContent = "modifier";
-  editButton.appendChild(editIcon);
+//Création du bouton d'appel à la modale//
+const projectTitle = document.querySelector("#portfolio h2");
+const editButton = document.createElement("button");
+editButton.classList.add("edit-button");
+const editIcon = document.createElement("i");
+editIcon.classList.add("fa-regular", "fa-pen-to-square");
+editButton.textContent = "modifier";
+editButton.appendChild(editIcon);
 // Ajoutez le bouton modifier à la balise h2
-  projectTitle.appendChild(editButton);
+projectTitle.appendChild(editButton);
 
 //Cache le lien login et affiche le lien logout si logged in//
+
 
 const loginLink = document.querySelector("#login");
 if (localStorage.getItem("token")) {
@@ -178,4 +152,3 @@ logoutLink.addEventListener("click", (event) =>{
     localStorage.removeItem("token");
     window.location.href = "./index.html";
 })
-
