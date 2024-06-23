@@ -164,7 +164,7 @@ inputButton.appendChild(addFileBtn);
 //Création du texte d'ajout de photo//
 const uploadText = document.createElement("label");
 uploadText.classList.add("upload-text");
-uploadText.setAttribute("for", "photo");
+uploadText.setAttribute("for", "file-btn");
 uploadText.textContent = "+ Ajouter photo";
 inputButton.appendChild(uploadText);
 
